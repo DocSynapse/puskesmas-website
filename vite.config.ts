@@ -4,14 +4,16 @@ import { defineConfig } from "vite"
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/',
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    base: '/',
+    plugins: [react()],
+    resolve: {
+          alias: {
+                  "@": path.resolve(__dirname, "./src"),
+          },
     },
-  },
-  preview: {
-    allowedHosts: "all",
-  },
+    preview: {
+          allowedHosts: [
+                  'puskesmas-website-production.up.railway.app',
+                ],
+    },
 });
