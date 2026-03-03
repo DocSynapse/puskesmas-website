@@ -13,6 +13,8 @@
 
 🌐 **Live:** [puskesmas-website-production.up.railway.app](https://puskesmas-website-production.up.railway.app)
 
+<img src="./public/site.png" alt="Puskesmas PONED Balowerti Website Preview" width="900" />
+
 </div>
 
 ---
