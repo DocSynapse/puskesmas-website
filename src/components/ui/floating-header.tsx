@@ -19,9 +19,9 @@ export function FloatingHeader({ crewPortalUrl = 'http://localhost:3000' }: Floa
 
   const navLinks: NavLink[] = [
     { label: 'Layanan', href: '#services' },
+    { label: 'Alur Pasien', href: '#patient-flow' },
     { label: 'Dokter', href: '#doctors' },
     { label: 'Fasilitas', href: '#facilities' },
-    { label: 'USG', href: '#usg' },
     { label: 'Reservasi', href: '#reservation' },
   ];
 

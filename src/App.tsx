@@ -13,6 +13,7 @@ import Reservation from './sections/Reservation';
 import Location from './sections/Location';
 import Footer from './sections/Footer';
 import StoryScroll from './components/StoryScroll';
+import PatientFlow from './sections/PatientFlow';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Hero />
         <About />
         <Services />
+        <PatientFlow />
         <Doctors />
         <Facilities />
         <USG />
