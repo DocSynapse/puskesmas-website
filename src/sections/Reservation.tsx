@@ -3,11 +3,35 @@
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, Clock, User, Phone, CheckCircle2 } from 'lucide-react';
 
+const WA_NUMBER = '6285178922096';
+
 const Reservation = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [queueCount, setQueueCount] = useState(4);
   const [waitTime, setWaitTime] = useState(15);
+  const [nama, setNama] = useState('');
+  const [noHp, setNoHp] = useState('');
+  const [layanan, setLayanan] = useState('');
+  const [tanggal, setTanggal] = useState('');
+  const [waktu, setWaktu] = useState('');
+
+  function handleReservasi() {
+    if (!nama || !layanan || !tanggal || !waktu) {
+      alert('Mohon lengkapi semua field sebelum konfirmasi.');
+      return;
+    }
+    const msg = encodeURIComponent(
+      `Halo Puskesmas Balowerti, saya ingin reservasi:\n\n` +
+      `👤 Nama: ${nama}\n` +
+      `📞 No HP: ${noHp || '-'}\n` +
+      `🏥 Layanan: ${layanan}\n` +
+      `📅 Tanggal: ${tanggal}\n` +
+      `⏰ Waktu: ${waktu}\n\n` +
+      `Mohon konfirmasinya. Terima kasih 🙏`
+    );
+    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -118,6 +142,14 @@ const Reservation = () => {
               <p className="text-base text-[#8B7D6F] leading-relaxed">
                 Isi data singkat, pilih layanan, dan dapatkan estimasi waktu pelayanan.
               </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <span className="inline-flex items-center gap-1.5 text-xs bg-[#FAF3EB] text-[#8B7D6F] px-3 py-1.5 rounded-full">
+                  🕐 Senin–Sabtu: 07:30–17:00
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-xs bg-red-50 text-red-500 px-3 py-1.5 rounded-full">
+                  🚨 UGD: 24 Jam
+                </span>
+              </div>
             </div>
 
             <div
@@ -135,6 +167,8 @@ const Reservation = () => {
                     <input
                       type="text"
                       placeholder="Masukkan nama lengkap"
+                      value={nama}
+                      onChange={e => setNama(e.target.value)}
                       className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-4 py-3 text-sm text-[#2D2420] placeholder:text-[#8B7D6F]/50 focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
                     />
                   </div>
@@ -149,6 +183,8 @@ const Reservation = () => {
                     <input
                       type="tel"
                       placeholder="0812xxxxxxx"
+                      value={noHp}
+                      onChange={e => setNoHp(e.target.value)}
                       className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-4 py-3 text-sm text-[#2D2420] placeholder:text-[#8B7D6F]/50 focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
                     />
                   </div>
@@ -160,12 +196,19 @@ const Reservation = () => {
                   </label>
                   <div className="relative">
                     <CheckCircle2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
-                    <select className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control">
-                      <option>Pilih Layanan</option>
+                    <select
+                      value={layanan}
+                      onChange={e => setLayanan(e.target.value)}
+                      className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
+                    >
+                      <option value="">Pilih Layanan</option>
                       <option>Poli Umum</option>
                       <option>Poli Gigi</option>
                       <option>KIA</option>
                       <option>Laboratorium</option>
+                      <option>Imunisasi</option>
+                      <option>KB</option>
+                      <option>Kesehatan Jiwa</option>
                     </select>
                   </div>
                 </div>
@@ -178,6 +221,9 @@ const Reservation = () => {
                     <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
                     <input
                       type="date"
+                      value={tanggal}
+                      onChange={e => setTanggal(e.target.value)}
+                      min={new Date().toISOString().split('T')[0]}
                       className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-4 py-3 text-sm text-[#2D2420] focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
                     />
                   </div>
@@ -189,10 +235,15 @@ const Reservation = () => {
                   </label>
                   <div className="relative">
                     <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
-                    <select className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control">
-                      <option>Pilih Waktu</option>
-                      <option>08:00 - 10:00</option>
-                      <option>10:00 - 12:00</option>
+                    <select
+                      value={waktu}
+                      onChange={e => setWaktu(e.target.value)}
+                      className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
+                    >
+                      <option value="">Pilih Waktu</option>
+                      <option>07:30 - 09:00</option>
+                      <option>09:00 - 11:00</option>
+                      <option>11:00 - 13:00</option>
                       <option>13:00 - 15:00</option>
                       <option>15:00 - 17:00</option>
                     </select>
@@ -200,8 +251,11 @@ const Reservation = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-[#C9A87C] hover:bg-[#B8956A] text-white font-medium py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#C9A87C]/20 heartbeat neo-card-hover">
-                <span>Konfirmasi Reservasi</span>
+              <button
+                onClick={handleReservasi}
+                className="w-full bg-[#C9A87C] hover:bg-[#B8956A] text-white font-medium py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#C9A87C]/20 neo-card-hover"
+              >
+                <span>💬 Konfirmasi via WhatsApp</span>
               </button>
             </div>
 
