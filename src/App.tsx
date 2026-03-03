@@ -17,8 +17,19 @@ import StoryScroll from './components/StoryScroll';
 function App() {
   return (
     <div className="relative min-h-screen bg-[#F8F5F2]">
+      {/* Dot grid background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(201,168,124,0.18) 1.5px, transparent 1.5px)',
+          backgroundSize: '14px 14px',
+        }}
+      />
       <div className="grain-overlay" />
-      <Navigation />
+      <div className="px-4">
+        <Navigation />
+      </div>
       <StoryScroll />
       <main className="relative">
         <Hero />
