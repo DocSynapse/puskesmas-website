@@ -150,8 +150,12 @@ const USG = () => {
             {/* Main Image */}
             <div className="relative rounded-[28px] overflow-hidden neo-card neo-card-hover group">
               <img
-                src="/images/usg.jpg"
+                src="/images/usg.avif"
                 alt="Layanan USG Puskesmas Balowerti"
+                width="800"
+                height="500"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[400px] lg:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               

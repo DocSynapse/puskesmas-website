@@ -1,19 +1,50 @@
 import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import type { UserConfig } from 'vite'
 
-// https://vite.dev/config/
+const terserOpts: UserConfig['build'] = {
+  minify: 'terser',
+  terserOptions: {
+    compress: {
+      drop_console: true,
+      drop_debugger: true,
+    },
+  },
+};
+
 export default defineConfig({
-    base: '/',
-    plugins: [react()],
-    resolve: {
-          alias: {
-                  "@": path.resolve(__dirname, "./src"),
-          },
+  base: '/',
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
-    preview: {
-          allowedHosts: [
-                  'puskesmas-website-production.up.railway.app',
-                ],
+  },
+  build: {
+    ...terserOpts,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-ui': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-slot',
+            'class-variance-authority',
+            'clsx',
+            'tailwind-merge',
+          ],
+          'vendor-animation': ['framer-motion', 'lenis'],
+          'vendor-icons': ['lucide-react'],
+        },
+      },
     },
+    sourcemap: false,
+    chunkSizeWarningLimit: 400,
+  },
+  preview: {
+    allowedHosts: [
+      'puskesmas-website-production.up.railway.app',
+    ],
+  },
 });

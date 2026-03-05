@@ -51,7 +51,7 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
           <div className="w-9 h-9 rounded-full overflow-hidden border border-[#C9A87C]/30 flex-shrink-0">
-            <img src="/images/logookm.png" alt="Logo Puskesmas" className="w-full h-full object-cover" />
+            <img src="/images/logookm.png" alt="Logo Puskesmas" width="36" height="36" loading="eager" decoding="sync" className="w-full h-full object-cover" />
           </div>
           <span className="font-bold text-sm text-[#2D2420] hidden sm:block">
             Puskesmas Balowerti
@@ -75,7 +75,7 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
         {/* Kanan: logo Kediri + social + CTA + mobile menu */}
         <div className="flex items-center gap-2">
           <div className="hidden lg:flex items-center gap-2 pr-3 border-r border-[#E5DDD5]">
-            <img src="/images/logokediri.png" alt="Logo Kota Kediri" className="h-8 w-auto object-contain" />
+            <img src="/images/logokediri.avif" alt="Logo Kota Kediri" width="80" height="32" loading="eager" decoding="async" className="h-8 w-auto object-contain" />
           </div>
 
           <div className="hidden lg:flex items-center gap-1">
@@ -123,10 +123,10 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
               side="left"
             >
               <div className="flex items-center gap-3 px-4 pt-6 pb-4 border-b border-[#FAF3EB]">
-                <img src="/images/logookm.png" alt="Logo" className="w-10 h-10 rounded-full" />
+                <img src="/images/logookm.png" alt="Logo Puskesmas" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-full" />
                 <div>
                   <p className="font-bold text-[#2D2420] text-sm">Puskesmas Balowerti</p>
-                  <img src="/images/logokediri.png" alt="Kota Kediri" className="h-5 w-auto mt-1" />
+                  <img src="/images/logokediri.avif" alt="Kota Kediri" width="60" height="20" loading="lazy" decoding="async" className="h-5 w-auto mt-1" />
                 </div>
               </div>
 

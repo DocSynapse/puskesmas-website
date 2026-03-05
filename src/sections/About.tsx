@@ -90,8 +90,12 @@ const About = () => {
           style={{ transitionDelay: '400ms' }}>
           <div className="relative w-full h-[300px] lg:h-[500px] rounded-[30px] overflow-hidden neo-card neo-card-hover">
             <img
-              src="/images/puskesmas-building.png"
+              src="/images/puskesmas-building.avif"
               alt="Puskesmas Balowerti - Gedung Utama"
+              width="1440"
+              height="500"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#2D2420]/40 via-transparent to-transparent" />

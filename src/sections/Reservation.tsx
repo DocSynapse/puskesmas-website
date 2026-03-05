@@ -128,8 +128,12 @@ const Reservation = () => {
           >
             <div className="relative mx-auto lg:mx-0 w-full max-w-[450px] aspect-[3/4] rounded-[30px] overflow-hidden neo-card neo-card-hover">
               <img
-                src="/images/reservation-portrait.jpg"
-                alt="Healthcare Staff"
+                src="/images/reservation-portrait.avif"
+                alt="Staf kesehatan Puskesmas Balowerti"
+                width="450"
+                height="600"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2D2420]/30 to-transparent" />

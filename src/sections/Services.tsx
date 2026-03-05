@@ -57,11 +57,13 @@ const ServiceImage = ({
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className={`w-full h-full object-cover transition-all duration-500
           ${loaded ? 'opacity-100' : 'opacity-0'}`}
         style={{
-          transform: hovered 
-            ? `scale(1.1) translate(${-mousePosition.x}px, ${-mousePosition.y}px)` 
+          transform: hovered
+            ? `scale(1.1) translate(${-mousePosition.x}px, ${-mousePosition.y}px)`
             : 'scale(1) translate(0, 0)',
           transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)',
         }}
@@ -128,38 +130,38 @@ const Services = () => {
       icon: Stethoscope,
       title: 'Poli Umum & Geriatri',
       description: 'Pemeriksaan kesehatan umum, pengelolaan kronis, dan layanan lansia.',
-      image: '/images/poli-umum.jpg',
+      image: '/images/poli-umum.avif',
     },
     {
       icon: Smile,
       title: 'Poli Gigi',
       description: 'Perawatan gigi, scaling, dan edukasi kesehatan mulut.',
-      image: '/images/poli-gigi-real.webp',
+      image: '/images/poli-gigi-real.avif',
     },
     {
       icon: Baby,
       title: 'KIA & Imunisasi',
       description: 'Layanan ibu hamil, anak sehat, dan jadwal imunisasi lengkap.',
-      image: '/images/kia.webp',
+      image: '/images/kia.avif',
     },
     {
       icon: FlaskConical,
       title: 'Laboratorium & VCT',
       description: 'Pemeriksaan darah, urin, dan konseling tes HIV dengan privasi terjaga.',
-      image: '/images/service-4.jpg',
+      image: '/images/service-4.avif',
       privacy: true,
     },
     {
       icon: Siren,
       title: 'UGD 24 Jam',
       description: 'Penanganan gawat darurat dan observasi singkat selama 24 jam.',
-      image: '/images/ugd-24jam.jpg',
+      image: '/images/ugd-24jam.avif',
     },
     {
       icon: Bed,
       title: 'Rawat Inap',
       description: 'Perawatan intensif harian dengan monitoring terintegrasi.',
-      image: '/images/rawatinap.webp',
+      image: '/images/rawatinap.avif',
     },
   ];
 

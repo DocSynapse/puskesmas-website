@@ -59,10 +59,10 @@ const Footer = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}>
             <div className="w-20 h-20 rounded-full bg-white p-2 neo-card">
-              <img src="/images/logookm.png" alt="Logo Puskesmas" className="w-full h-full object-contain" />
+              <img src="/images/logookm.png" alt="Logo Puskesmas" width="80" height="80" loading="lazy" decoding="async" className="w-full h-full object-contain" />
             </div>
             <div className="h-16 w-px bg-[#E5DDD5]" />
-            <img src="/images/logokediri.png" alt="Logo Kota Kediri" className="h-16 w-auto object-contain" />
+            <img src="/images/logokediri.avif" alt="Logo Kota Kediri" width="160" height="64" loading="lazy" decoding="async" className="h-16 w-auto object-contain" />
           </div>
 
           <div

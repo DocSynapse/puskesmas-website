@@ -131,8 +131,12 @@ const Doctors = () => {
                         bg-[#FAF3EB] neo-inset"
                     >
                       <img
-                        src="/images/idi.png"
+                        src="/images/idi.avif"
                         alt="Logo IDI"
+                        width="32"
+                        height="32"
+                        loading="lazy"
+                        decoding="async"
                         className="h-8 w-8 object-contain"
                       />
                     </div>

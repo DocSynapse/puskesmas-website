@@ -6,9 +6,9 @@ import { buildWhatsAppUrl, OPERATIONAL_HOURS } from '@/config/site';
 type Mode = 'kunjungan' | 'telemedicine' | 'darurat';
 
 const doctors = [
-  { name: 'dr. Ferdi Iskandar', poli: 'Poli Umum', shift: OPERATIONAL_HOURS.doctorShift, img: '/images/ferdi.png' },
-  { name: 'dr. Cica Lusiana', poli: 'Poli Lansia', shift: OPERATIONAL_HOURS.doctorShift, img: '/images/cica.webp' },
-  { name: 'dr. Rachmad Juni T.', poli: 'IGD', shift: OPERATIONAL_HOURS.emergency, img: '/images/rachmad.png' },
+  { name: 'dr. Ferdi Iskandar', poli: 'Poli Umum', shift: OPERATIONAL_HOURS.doctorShift, img: '/images/ferdi.avif' },
+  { name: 'dr. Cica Lusiana', poli: 'Poli Lansia', shift: OPERATIONAL_HOURS.doctorShift, img: '/images/cica.avif' },
+  { name: 'dr. Rachmad Juni T.', poli: 'IGD', shift: OPERATIONAL_HOURS.emergency, img: '/images/rachmad.avif' },
   { name: 'drg. Endah Retno W.', poli: 'Poli Gigi', shift: OPERATIONAL_HOURS.doctorShift, img: '/images/endah.avif' },
 ];
 
@@ -141,7 +141,7 @@ export default function Hero() {
           {/* Left - Character */}
           <div className={`transition-all duration-700 delay-100 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <div className="relative h-[560px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#FAF3EB] to-[#F8F5F2] border border-[#EADDCB] shadow-xl">
-              <img src="/images/doc.png" alt="Dokter" className="w-full h-full object-cover" />
+              <img src="/images/doc.avif" alt="Dokter" width="600" height="560" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="sync" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2D2420]/60 via-transparent to-transparent" />
               
               {/* Stats */}
@@ -207,7 +207,7 @@ export default function Hero() {
                       <div className="space-y-2">
                         {doctors.filter(d => d.poli.includes(layanan.replace('Poli ', '')) || layanan === 'IGD').map(doc => (
                           <div key={doc.name} className="flex items-center gap-3 p-3 bg-[#FAF3EB]/70 rounded-xl border border-[#EADDCB] hover:border-[#C9A87C]/30 transition-colors cursor-pointer">
-                            <img src={doc.img} alt={doc.name} className="w-10 h-10 rounded-full object-cover border border-[#EADDCB]" />
+                            <img src={doc.img} alt={doc.name} width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-full object-cover border border-[#EADDCB]" />
                             <div className="flex-1">
                               <p className="text-sm font-semibold text-[#2D2420]">{doc.name}</p>
                               <p className="text-xs text-[#8B7D6F]">{doc.poli} • {doc.shift}</p>

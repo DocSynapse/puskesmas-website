@@ -47,6 +47,8 @@ const AnimatedImage = ({
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className={`w-full h-full object-cover transition-all duration-700
           ${loaded ? 'opacity-100' : 'opacity-0'}
           ${hovered ? 'scale-110' : 'scale-100'}`}
@@ -165,7 +167,7 @@ const Facilities = () => {
           {/* 1. Tim Puskesmas - Large Top Left */}
           <div className="group relative col-span-2 row-span-2">
             <AnimatedImage
-              src="/images/tim.webp"
+              src="/images/tim.avif"
               alt="Tim Puskesmas Balowerti"
               className="w-full h-full rounded-[28px] neo-card neo-card-hover"
               delay={300}
@@ -179,7 +181,7 @@ const Facilities = () => {
           {/* 2. Ruang Tunggu - Top Right */}
           <div className="group relative col-span-2 row-span-1">
             <AnimatedImage
-              src="/images/ruangtunggu.webp"
+              src="/images/ruangtunggu.avif"
               alt="Ruang Tunggu Puskesmas Balowerti"
               className="w-full h-full rounded-[24px] neo-card neo-card-hover"
               delay={450}
@@ -193,7 +195,7 @@ const Facilities = () => {
           {/* 3. USG Promo - Highlight Card */}
           <div className="group relative col-span-1 row-span-1">
             <AnimatedImage
-              src="/images/usg.jpg"
+              src="/images/usg.avif"
               alt="Promo USG - Pemeriksaan USG"
               className="w-full h-full rounded-[24px] neo-card neo-card-hover"
               delay={600}
@@ -220,7 +222,7 @@ const Facilities = () => {
           {/* 4. Ruang Nifas Postpartum */}
           <div className="group relative col-span-1 row-span-1">
             <AnimatedImage
-              src="/images/rawatinap.webp"
+              src="/images/rawatinap.avif"
               alt="Ruang Nifas Postpartum"
               className="w-full h-full rounded-[24px] neo-card neo-card-hover"
               delay={750}
@@ -234,7 +236,7 @@ const Facilities = () => {
           {/* 5. Rawat Inap - Bottom Row */}
           <div className="group relative col-span-2 row-span-1">
             <AnimatedImage
-              src="/images/ranap.webp"
+              src="/images/ranap.avif"
               alt="Ruang Rawat Inap"
               className="w-full h-full rounded-[24px] neo-card neo-card-hover"
               delay={900}
@@ -248,7 +250,7 @@ const Facilities = () => {
           {/* 6. Poli KIA */}
           <div className="group relative col-span-2 row-span-1">
             <AnimatedImage
-              src="/images/kia.webp"
+              src="/images/kia.avif"
               alt="Poli KIA - Kesehatan Ibu dan Anak"
               className="w-full h-full rounded-[24px] neo-card neo-card-hover"
               delay={1050}

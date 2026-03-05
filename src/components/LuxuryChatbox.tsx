@@ -242,7 +242,7 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
               <div className={`w-16 h-16 rounded-full overflow-hidden border-3 border-white/80 transition-all duration-300 ${
                 pulseActive ? 'scale-105 ring-4 ring-purple-400/50' : ''}`}
                 style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-                <img src="/images/abby2.png" alt="Abby" className="w-full h-full object-cover" />
+                <img src="/images/abby2.avif" alt="Abby — Asisten Virtual Puskesmas" width="64" height="64" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white flex items-center justify-center">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
@@ -284,7 +284,7 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
             <div key={msg.id} className={`flex items-end gap-2 ${msg.sender === 'abby' ? 'flex-row' : 'flex-row-reverse'}`}>
               {msg.sender === 'abby' && (
                 <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 border border-[#C9A87C]/20 relative">
-                  <img src="/images/abby2.png" alt="Abby" className="w-full h-full object-cover" />
+                  <img src="/images/abby2.avif" alt="Abby — Asisten Virtual Puskesmas" width="64" height="64" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
               )}
               {msg.sender === 'user' && (
@@ -305,7 +305,7 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
           {(isTyping || isThinking) && (
             <div className="flex items-end gap-2">
               <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 border border-[#C9A87C]/20">
-                <img src="/images/abby2.png" alt="Abby" className="w-full h-full object-cover" />
+                <img src="/images/abby2.avif" alt="Abby — Asisten Virtual Puskesmas" width="64" height="64" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               </div>
               <div className="bg-white border border-[#E5DDD5] px-4 py-3 rounded-2xl rounded-bl-md">
                 <span className="flex gap-1">
