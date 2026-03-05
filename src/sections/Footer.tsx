@@ -152,10 +152,7 @@ const Footer = () => {
               transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             style={{ transitionDelay: '600ms' }}
           >
-            <a href="#" className="text-sm text-[#8B7D6F] hover:text-[#C9A87C] transition-colors">
-              Syarat & Ketentuan
-            </a>
-            <a href="#" className="text-sm text-[#8B7D6F] hover:text-[#C9A87C] transition-colors">
+            <a href="/kebijakan-privasi.html" className="text-sm text-[#8B7D6F] hover:text-[#C9A87C] transition-colors">
               Kebijakan Privasi
             </a>
             <a href="#about" className="text-sm text-[#8B7D6F] hover:text-[#C9A87C] transition-colors">
@@ -178,6 +175,9 @@ const Footer = () => {
             <p className="text-xs text-[#8B7D6F] mt-2">
               Dinas Kesehatan Kota Kediri · Architecture & Developed by{' '}
               <span className="text-[#C9A87C] font-medium">Sentra Mitra Design</span>
+            </p>
+            <p className="text-xs text-[#8B7D6F]/60 mt-3 max-w-lg mx-auto leading-relaxed">
+              Konten website ini bersifat informatif. Bukan pengganti konsultasi, diagnosis, atau penanganan medis oleh tenaga kesehatan berwenang.
             </p>
           </div>
         </div>

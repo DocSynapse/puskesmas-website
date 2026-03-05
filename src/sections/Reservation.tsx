@@ -338,6 +338,14 @@ const Reservation = () => {
 
               </div>
 
+              <p className="text-xs text-[#8B7D6F]/70 mb-4 leading-relaxed">
+                Dengan melanjutkan, Anda menyetujui{' '}
+                <a href="/kebijakan-privasi.html" className="text-[#C9A87C] underline hover:text-[#B8956A]">
+                  Kebijakan Privasi
+                </a>{' '}
+                kami. Data Anda hanya digunakan untuk keperluan pelayanan kesehatan.
+              </p>
+
               <button
                 onClick={handleReservasi}
                 data-magnetic
