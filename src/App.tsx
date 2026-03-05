@@ -48,6 +48,7 @@ function App() {
         wheelMultiplier: 0.9,
         touchMultiplier: 1.5,
         infinite: false,
+        anchors: false,
       }}
     >
       <LenisBridge />
