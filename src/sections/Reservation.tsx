@@ -1,7 +1,7 @@
 // Chief's Reservation Section - Zen Queue System & Informative Wait-Time
 
 import { useEffect, useRef, useState } from 'react';
-import { Calendar, Clock, User, Phone, CheckCircle2 } from 'lucide-react';
+import { Calendar, Clock, User, Phone, CheckCircle2, Video } from 'lucide-react';
 import { buildWhatsAppUrl, OPERATIONAL_HOURS, QUEUE_INFO } from '@/config/site';
 
 const Reservation = () => {
@@ -12,21 +12,61 @@ const Reservation = () => {
   const [layanan, setLayanan] = useState('');
   const [tanggal, setTanggal] = useState('');
   const [waktu, setWaktu] = useState('');
+  const [keluhan, setKeluhan] = useState('');
+  const [usia, setUsia] = useState('');
+  const [poli, setPoli] = useState('');
+  const [bpjs, setBpjs] = useState('');
+
+  const isTelemedicine = layanan === 'Konsultasi Online (Telemedicine)';
 
   function handleReservasi() {
-    if (!nama || !layanan || !tanggal || !waktu) {
-      alert('Mohon lengkapi semua field sebelum konfirmasi.');
+    if (isTelemedicine) {
+      if (!nama || !noHp) {
+        alert('Mohon isi nama dan nomor HP.');
+        return;
+      }
+    } else {
+      if (!nama || !layanan || !tanggal || !waktu) {
+        alert('Mohon lengkapi semua field sebelum konfirmasi.');
+        return;
+      }
+    }
+    if (isTelemedicine && !keluhan.trim()) {
+      alert('Mohon isi keluhan utama untuk konsultasi online.');
       return;
     }
-    const msg =
-      `Halo Puskesmas Balowerti, saya ingin reservasi:\n\n` +
-      `👤 Nama: ${nama}\n` +
-      `📞 No HP: ${noHp || '-'}\n` +
-      `🏥 Layanan: ${layanan}\n` +
-      `📅 Tanggal: ${tanggal}\n` +
-      `⏰ Waktu: ${waktu}\n\n` +
-      `Mohon konfirmasinya. Terima kasih 🙏`;
-    window.open(buildWhatsAppUrl(msg), '_blank');
+    if (isTelemedicine && !usia.trim()) {
+      alert('Mohon isi usia pasien.');
+      return;
+    }
+
+    let msg: string;
+    if (isTelemedicine) {
+      const lines = [
+        '*TELEMEDICINE*',
+        '',
+        'Nama: ' + nama,
+        'Usia: ' + usia,
+        'HP: ' + (noHp || '-'),
+        'Poli: ' + (poli || 'Poli Umum'),
+        'No. BPJS / Register: ' + (bpjs || '-'),
+        'Keluhan: ' + keluhan,
+        '',
+        'Request: dr. Ferdi Iskandar',
+      ];
+      msg = lines.join('\n');
+    } else {
+      msg =
+        `Halo Puskesmas Balowerti, saya ingin reservasi:\n\n` +
+        `👤 Nama: ${nama}\n` +
+        `📞 No HP: ${noHp || '-'}\n` +
+        `🏥 Layanan: ${layanan}\n` +
+        `📅 Tanggal: ${tanggal}\n` +
+        `⏰ Waktu: ${waktu}\n\n` +
+        `Mohon konfirmasinya. Terima kasih 🙏`;
+    }
+    const url = buildWhatsAppUrl(msg);
+    window.open(url, `wa_${Date.now()}`);
   }
 
   useEffect(() => {
@@ -76,7 +116,7 @@ const Reservation = () => {
     <section
       ref={sectionRef}
       id="reservation"
-      className="relative w-full py-14 lg:py-20 bg-[#F8F5F2] overflow-hidden neo-section"
+      className="relative w-full py-14 lg:py-20 bg-[#F8F5F2] neo-section"
     >
       <div className="px-6 lg:px-[7vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -183,6 +223,8 @@ const Reservation = () => {
                       className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
                     >
                       <option value="">Pilih Layanan</option>
+                      <option>Konsultasi Online (Telemedicine)</option>
+                      <option disabled>──────────────</option>
                       <option>Poli Umum</option>
                       <option>Poli Gigi</option>
                       <option>KIA</option>
@@ -232,13 +274,81 @@ const Reservation = () => {
                 </div>
               </div>
 
+              {/* Field tambahan telemedicine — always in DOM, shown/hidden via style */}
+              <div style={{ display: isTelemedicine ? 'flex' : 'none', flexDirection: 'column', gap: 16, marginTop: 8, marginBottom: 16 }}>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Usia *</label>
+                  <input
+                    type="number"
+                    min={1} max={120}
+                    placeholder="Contoh: 30"
+                    value={usia}
+                    onChange={e => setUsia(e.target.value)}
+                    style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid #C9A87C', borderRadius: 12, fontSize: 14, color: '#2D2420', background: 'rgba(255,255,255,0.6)', outline: 'none' }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Poli</label>
+                  <select
+                    value={poli}
+                    onChange={e => setPoli(e.target.value)}
+                    style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid #C9A87C', borderRadius: 12, fontSize: 14, color: '#2D2420', background: 'rgba(255,255,255,0.6)', outline: 'none' }}
+                  >
+                    <option value="Poli Umum">Poli Umum</option>
+                    <option value="Poli Gigi">Poli Gigi</option>
+                    <option value="KIA">KIA</option>
+                    <option value="Kesehatan Jiwa">Kesehatan Jiwa</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>No. BPJS / Register</label>
+                  <input
+                    type="text"
+                    placeholder="Nomor BPJS atau nomor register pasien..."
+                    value={bpjs}
+                    onChange={e => setBpjs(e.target.value)}
+                    style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid #C9A87C', borderRadius: 12, fontSize: 14, color: '#2D2420', background: 'rgba(255,255,255,0.6)', outline: 'none' }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Keluhan *</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Contoh: Nyeri kepala 2 hari, mual muntah..."
+                    value={keluhan}
+                    onChange={e => setKeluhan(e.target.value)}
+                    style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid #C9A87C', borderRadius: 12, fontSize: 14, color: '#2D2420', background: 'rgba(255,255,255,0.6)', outline: 'none', resize: 'none' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: 'rgba(201,168,124,0.1)', borderRadius: 8, padding: '8px 12px' }}>
+                  <Video size={14} style={{ color: '#C9A87C', marginTop: 2, flexShrink: 0 }} />
+                  <p style={{ fontSize: 12, color: '#8B7D6F', margin: 0 }}>
+                    Admin akan menghubungi Anda untuk konfirmasi jadwal dan mengirimkan link konsultasi video.
+                  </p>
+                </div>
+
+              </div>
+
               <button
                 onClick={handleReservasi}
                 data-magnetic
                 data-magnetic-strength="10"
-                className="w-full bg-[#C9A87C] hover:bg-[#B8956A] text-white font-medium py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#C9A87C]/20 neo-card-hover"
+                className={`w-full text-white font-medium py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg neo-card-hover ${
+                  isTelemedicine
+                    ? 'bg-[#2D7D9A] hover:bg-[#256B85] hover:shadow-[#2D7D9A]/20'
+                    : 'bg-[#C9A87C] hover:bg-[#B8956A] hover:shadow-[#C9A87C]/20'
+                }`}
               >
-                <span>💬 Konfirmasi via WhatsApp</span>
+                {isTelemedicine ? (
+                  <><Video className="w-4 h-4" /><span>Ajukan Konsultasi Online</span></>
+                ) : (
+                  <span>💬 Konfirmasi via WhatsApp</span>
+                )}
               </button>
             </div>
 

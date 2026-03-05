@@ -3,8 +3,8 @@ export const SITE_INFO = {
   address: 'Jl. Balowerti GG V No 68, Kediri',
   phoneDisplay: '(0354) 689746',
   phoneTel: '0354689746',
-  whatsappDisplay: '0851-7892-2096',
-  whatsappInternational: '6285178922096',
+  whatsappDisplay: '0823-3265-6878',
+  whatsappInternational: '6282332656878',
   email: 'puskesmas.balowerti@kediri.go.id',
 } as const;
 

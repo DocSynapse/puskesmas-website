@@ -33,3 +33,35 @@ backups/
 # Backup artifacts
 *.bak
 *.backup
+
+# ─── AI Tool Caches & Agent Config ───────────────────────────────────────────
+.anthropic/
+.openai/
+.cursor/
+.aider*
+aider.conf.yml
+.continue/
+.codeium/
+.github/copilot-*
+.copilot/
+.claude/
+
+# ─── Model Weights & AI Artifacts ────────────────────────────────────────────
+*.gguf
+*.ggml
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+models/
+checkpoints/
+*.faiss
+*.index
+chroma_db/
+qdrant_db/
+pinecone_cache/
+training_data/
+fine_tune/
+ai_outputs/
+generated/
+llm_cache/

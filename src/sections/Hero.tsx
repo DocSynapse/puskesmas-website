@@ -38,17 +38,31 @@ const waktuList = [
 ];
 
 export default function Hero() {
-  const [mode, setMode] = useState<Mode>('kunjungan');
+  const [mode, setMode] = useState<Mode>('telemedicine');
   const [loaded, setLoaded] = useState(false);
   const [layanan, setLayanan] = useState('');
   const [showDoctors, setShowDoctors] = useState(false);
   
   // Form states
   const [form, setForm] = useState({ nama: '', hp: '', tanggal: '', waktu: '' });
-  const [tele, setTele] = useState({ nama: '', usia: '', hp: '', poli: '', keluhan: '' });
+  const [tele, setTele] = useState({ nama: '', usia: '', hp: '', poli: '', bpjs: '', keluhan: '' });
+  const [onlineDoctors, setOnlineDoctors] = useState<string[]>([]);
+  const [teleSubmitting, setTeleSubmitting] = useState(false);
+  const [teleSuccess, setTeleSuccess] = useState(false);
 
 
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
+
+  // Fetch dokter online dari dashboard
+  useEffect(() => {
+    const DASHBOARD = 'https://primary-healthcare-production.up.railway.app';
+    fetch(`${DASHBOARD}/api/telemedicine/doctor-status`)
+      .then((r) => r.json())
+      .then((data: { doctors?: { doctorName: string }[] }) => {
+        setOnlineDoctors((data.doctors ?? []).map((d) => d.doctorName));
+      })
+      .catch(() => { /* silent — badge tidak muncul jika gagal */ });
+  }, []);
 
   const sendWA = (text: string) => window.open(buildWhatsAppUrl(text), '_blank');
 
@@ -57,9 +71,24 @@ export default function Hero() {
     sendWA(`*RESERVASI KUNJUNGAN*\n\nNama: ${form.nama}\nHP: ${form.hp}\nLayanan: ${layanan}\nTanggal: ${form.tanggal}\nWaktu: ${form.waktu}`);
   };
 
-  const handleTele = () => {
-    if (!tele.nama || !tele.hp || !tele.keluhan) return alert('Lengkapi data!');
-    sendWA(`*TELEMEDICINE*\n\nNama: ${tele.nama}\nUsia: ${tele.usia}\nHP: ${tele.hp}\nPoli: ${tele.poli}\nKeluhan: ${tele.keluhan}`);
+  const handleTele = async () => {
+    if (!tele.nama || !tele.hp || !tele.keluhan) { alert('Lengkapi nama, HP, dan keluhan!'); return; }
+    setTeleSubmitting(true);
+    const DASHBOARD = 'https://primary-healthcare-production.up.railway.app';
+    const waMsg = `*TELEMEDICINE*\n\nNama: ${tele.nama}\nUsia: ${tele.usia}\nHP: ${tele.hp}\nPoli: ${tele.poli || 'Poli Umum'}\nNo. BPJS / Register: ${tele.bpjs || '-'}\nKeluhan: ${tele.keluhan}\n\nRequest: dr. Ferdi Iskandar`;
+    // Kirim ke dashboard + buka WA serentak
+    await Promise.allSettled([
+      fetch(`${DASHBOARD}/api/telemedicine/request`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nama: tele.nama, usia: tele.usia, hp: tele.hp, poli: tele.poli || 'Poli Umum', bpjs: tele.bpjs, keluhan: tele.keluhan }),
+      }),
+      Promise.resolve(sendWA(waMsg)),
+    ]);
+    setTeleSubmitting(false);
+    setTeleSuccess(true);
+    setTele({ nama: '', usia: '', hp: '', poli: '', bpjs: '', keluhan: '' });
+    setTimeout(() => setTeleSuccess(false), 4000);
   };
 
 
@@ -101,7 +130,7 @@ export default function Hero() {
             Puskesmas Balowerti Kediri
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#2D2420] leading-tight mb-4">
-            Pelayanan <span className="text-[#C9A87C]">Kesehatan</span><br />Terjangkau & Berkualitas
+            Pelayanan <span className="text-[#C9A87C]">Komprehensif</span><br />dan Berkualitas
           </h1>
           <p className="text-[#8B7D6F] max-w-lg mx-auto">Reservasi online untuk kunjungan fisik, konsultasi telemedicine, atau bantuan gawat darurat.</p>
         </div>
@@ -139,8 +168,8 @@ export default function Hero() {
               
               {/* Tabs */}
               <div className="p-2 bg-[#FAF3EB]/60 m-4 rounded-2xl flex gap-2">
-                <TabButton id="kunjungan" icon={MapPin} label="Kunjungan" color="bg-[#C9A87C]" />
                 <TabButton id="telemedicine" icon={Video} label="Telemedicine" color="bg-[#2D2420]" />
+                <TabButton id="kunjungan" icon={MapPin} label="Kunjungan" color="bg-[#C9A87C]" />
                 <TabButton id="darurat" icon={Siren} label="Darurat" color="bg-red-600" />
               </div>
 
@@ -221,12 +250,27 @@ export default function Hero() {
                 )}
 
                 {mode === 'telemedicine' && (
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <div className="bg-[#FAF3EB] rounded-xl p-4 border border-[#EADDCB] flex items-center gap-3">
                       <div className="w-10 h-10 bg-[#2D2420] rounded-xl flex items-center justify-center flex-shrink-0">
                         <Video className="w-5 h-5 text-white" />
                       </div>
-                      <p className="text-sm text-[#8B7D6F]"><span className="font-semibold text-[#2D2420]">Konsultasi dari Rumah</span> — Tim merespons via WhatsApp dan Anda akan terhubung dengan Platform Telemedicine Puskesmas Balowerti</p>
+                      <div className="flex-1">
+                        <p className="text-sm text-[#8B7D6F]"><span className="font-semibold text-[#2D2420]">Konsultasi dari Rumah</span> — Tim merespons via WhatsApp dan Anda akan terhubung dengan dokter kami.</p>
+                        {onlineDoctors.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mt-2">
+                            {onlineDoctors.map((name) => (
+                              <span key={name} className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full">
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+                                {name}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {onlineDoctors.length === 0 && (
+                          <p className="text-xs text-[#8B7D6F] mt-1 opacity-60">Tidak ada dokter online saat ini — request tetap diterima</p>
+                        )}
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-4 gap-3">
@@ -244,22 +288,38 @@ export default function Hero() {
                       placeholder="Pilih Poli"
                     />
 
+                    <input
+                      type="text"
+                      placeholder="No. BPJS / Register (opsional)"
+                      value={tele.bpjs}
+                      onChange={(e) => setTele({...tele, bpjs: e.target.value})}
+                      className="w-full bg-[#FAF3EB]/50 border border-[#EADDCB] rounded-xl px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30"
+                    />
+
                     <textarea
                       placeholder="Jelaskan keluhan..."
                       value={tele.keluhan}
                       onChange={(e) => setTele({...tele, keluhan: e.target.value})}
-                      rows={3}
-                      className="w-full bg-[#FAF3EB]/50 border border-[#EADDCB] rounded-xl px-3 py-3 text-sm resize-none focus:ring-2 focus:ring-[#C9A87C]/30"
+                      rows={2}
+                      className="w-full bg-[#FAF3EB]/50 border border-[#EADDCB] rounded-xl px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-[#C9A87C]/30"
                     />
 
-                    <button 
-                      onClick={handleTele}
-                      data-magnetic
-                      data-magnetic-strength="10"
-                      className="w-full bg-[#2D2420] hover:bg-[#1C1917] text-white py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all"
-                    >
-                      <MessageCircle className="w-4 h-4" /> Kirim ke WhatsApp Loket
-                    </button>
+                    {teleSuccess ? (
+                      <div className="w-full bg-green-50 border border-green-200 text-green-700 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                        ✓ Request terkirim! Cek WhatsApp Anda.
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => void handleTele()}
+                        disabled={teleSubmitting}
+                        data-magnetic
+                        data-magnetic-strength="10"
+                        className="w-full bg-[#2D2420] hover:bg-[#1C1917] text-white py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        {teleSubmitting ? 'Mengirim...' : 'Kirim ke WhatsApp Loket'}
+                      </button>
+                    )}
                   </div>
                 )}
 
