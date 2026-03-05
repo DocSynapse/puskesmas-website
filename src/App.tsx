@@ -2,22 +2,26 @@
 // Cream Color Palette: #C9A87C
 
 import { ReactLenis, useLenis } from 'lenis/react';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 
+// Above-fold — eager load
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
-import About from './sections/About';
-import Services from './sections/Services';
-import Doctors from './sections/Doctors';
-import Facilities from './sections/Facilities';
-import USG from './sections/USG';
-import Testimonials from './sections/Testimonials';
-import Reservation from './sections/Reservation';
-import Location from './sections/Location';
-import Footer from './sections/Footer';
 import StoryScroll from './components/StoryScroll';
-import PatientFlow from './sections/PatientFlow';
-import Diseases from './sections/Diseases';
+import WAFloatingButton from './components/WAFloatingButton';
+
+// Below-fold — lazy load
+const About        = lazy(() => import('./sections/About'));
+const Doctors      = lazy(() => import('./sections/Doctors'));
+const PatientFlow  = lazy(() => import('./sections/PatientFlow'));
+const Diseases     = lazy(() => import('./sections/Diseases'));
+const Services     = lazy(() => import('./sections/Services'));
+const Facilities   = lazy(() => import('./sections/Facilities'));
+const USG          = lazy(() => import('./sections/USG'));
+const Testimonials = lazy(() => import('./sections/Testimonials'));
+const Reservation  = lazy(() => import('./sections/Reservation'));
+const Location     = lazy(() => import('./sections/Location'));
+const Footer       = lazy(() => import('./sections/Footer'));
 
 const NAV_HEIGHT = 72;
 
@@ -67,20 +71,23 @@ function App() {
         <Navigation />
       </div>
       <StoryScroll />
+      <WAFloatingButton />
       <main className="relative">
-        {/* Hero — langsung visible, tidak perlu reveal */}
+        {/* Hero — above fold, tidak perlu reveal */}
         <Hero />
-        <div data-reveal="left"><About /></div>
-        <div data-reveal="right"><Doctors /></div>
-        <div data-reveal="left"><PatientFlow /></div>
-        <div data-reveal="right"><Diseases /></div>
-        <div data-reveal="left"><Services /></div>
-        <div data-reveal="right"><Facilities /></div>
-        <div data-reveal="left"><USG /></div>
-        <div data-reveal="right"><Testimonials /></div>
-        <div data-reveal="left"><Reservation /></div>
-        <div data-reveal="right"><Location /></div>
-        <div data-reveal><Footer /></div>
+        <Suspense fallback={null}>
+          <div data-reveal="left"><About /></div>
+          <div data-reveal="right"><Doctors /></div>
+          <div data-reveal="left"><PatientFlow /></div>
+          <div data-reveal="right"><Diseases /></div>
+          <div data-reveal="left"><Services /></div>
+          <div data-reveal="right"><Facilities /></div>
+          <div data-reveal="left"><USG /></div>
+          <div data-reveal="right"><Testimonials /></div>
+          <div data-reveal="left"><Reservation /></div>
+          <div data-reveal="right"><Location /></div>
+          <div data-reveal><Footer /></div>
+        </Suspense>
       </main>
     </div>
     </ReactLenis>

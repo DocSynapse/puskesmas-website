@@ -189,12 +189,13 @@ const Reservation = () => {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
+                  <label htmlFor="rsv-nama" className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
                     Nama Lengkap
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" aria-hidden="true" />
                     <input
+                      id="rsv-nama"
                       type="text"
                       placeholder="Masukkan nama lengkap"
                       value={nama}
@@ -205,12 +206,13 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
+                  <label htmlFor="rsv-nohp" className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
                     Nomor HP
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" aria-hidden="true" />
                     <input
+                      id="rsv-nohp"
                       type="tel"
                       placeholder="0812xxxxxxx"
                       value={noHp}
@@ -221,12 +223,13 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
+                  <label htmlFor="rsv-layanan" className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
                     Layanan
                   </label>
                   <div className="relative">
-                    <CheckCircle2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
+                    <CheckCircle2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" aria-hidden="true" />
                     <select
+                      id="rsv-layanan"
                       value={layanan}
                       onChange={e => setLayanan(e.target.value)}
                       className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
@@ -246,12 +249,13 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
+                  <label htmlFor="rsv-tanggal" className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
                     Tanggal
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
+                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" aria-hidden="true" />
                     <input
+                      id="rsv-tanggal"
                       type="date"
                       value={tanggal}
                       onChange={e => setTanggal(e.target.value)}
@@ -262,12 +266,13 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
+                  <label htmlFor="rsv-waktu" className="block text-xs uppercase tracking-wider text-[#8B7D6F] mb-2">
                     Waktu
                   </label>
                   <div className="relative">
-                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />
+                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" aria-hidden="true" />
                     <select
+                      id="rsv-waktu"
                       value={waktu}
                       onChange={e => setWaktu(e.target.value)}
                       className="w-full bg-white/50 border border-[#FAF3EB] rounded-xl pl-10 pr-8 py-3 text-sm text-[#2D2420] appearance-none focus:outline-none focus:ring-2 focus:ring-[#C9A87C]/30 transition-all neo-control"
