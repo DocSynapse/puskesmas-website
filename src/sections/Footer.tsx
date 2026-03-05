@@ -152,6 +152,9 @@ const Footer = () => {
               transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             style={{ transitionDelay: '600ms' }}
           >
+            <a href="/syarat-ketentuan.html" className="text-sm text-[#8B7D6F] hover:text-[#C9A87C] transition-colors">
+              Syarat &amp; Ketentuan
+            </a>
             <a href="/kebijakan-privasi.html" className="text-sm text-[#8B7D6F] hover:text-[#C9A87C] transition-colors">
               Kebijakan Privasi
             </a>

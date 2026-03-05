@@ -16,6 +16,7 @@ const Reservation = () => {
   const [usia, setUsia] = useState('');
   const [poli, setPoli] = useState('');
   const [bpjs, setBpjs] = useState('');
+  const [consent, setConsent] = useState(false);
 
   const isTelemedicine = layanan === 'Konsultasi Online (Telemedicine)';
 
@@ -37,6 +38,10 @@ const Reservation = () => {
     }
     if (isTelemedicine && !usia.trim()) {
       alert('Mohon isi usia pasien.');
+      return;
+    }
+    if (!consent) {
+      alert('Mohon setujui Kebijakan Privasi sebelum melanjutkan.');
       return;
     }
 
@@ -338,22 +343,37 @@ const Reservation = () => {
 
               </div>
 
-              <p className="text-xs text-[#8B7D6F]/70 mb-4 leading-relaxed">
-                Dengan melanjutkan, Anda menyetujui{' '}
-                <a href="/kebijakan-privasi.html" className="text-[#C9A87C] underline hover:text-[#B8956A]">
-                  Kebijakan Privasi
-                </a>{' '}
-                kami. Data Anda hanya digunakan untuk keperluan pelayanan kesehatan.
-              </p>
+              <label className="flex items-start gap-3 mb-4 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={e => setConsent(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 rounded border-[#C9A87C] accent-[#C9A87C] flex-shrink-0 cursor-pointer"
+                />
+                <span className="text-xs text-[#8B7D6F]/80 leading-relaxed group-hover:text-[#8B7D6F] transition-colors">
+                  Saya menyetujui{' '}
+                  <a
+                    href="/kebijakan-privasi.html"
+                    onClick={e => e.stopPropagation()}
+                    className="text-[#C9A87C] underline hover:text-[#B8956A]"
+                  >
+                    Kebijakan Privasi
+                  </a>{' '}
+                  dan mengizinkan Puskesmas Balowerti memproses data saya untuk keperluan pelayanan kesehatan.
+                </span>
+              </label>
 
               <button
                 onClick={handleReservasi}
+                disabled={!consent}
                 data-magnetic
                 data-magnetic-strength="10"
-                className={`w-full text-white font-medium py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg neo-card-hover ${
-                  isTelemedicine
-                    ? 'bg-[#2D7D9A] hover:bg-[#256B85] hover:shadow-[#2D7D9A]/20'
-                    : 'bg-[#C9A87C] hover:bg-[#B8956A] hover:shadow-[#C9A87C]/20'
+                className={`w-full text-white font-medium py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 neo-card-hover ${
+                  !consent
+                    ? 'opacity-50 cursor-not-allowed bg-[#8B7D6F]'
+                    : isTelemedicine
+                      ? 'bg-[#2D7D9A] hover:bg-[#256B85] hover:shadow-lg hover:shadow-[#2D7D9A]/20'
+                      : 'bg-[#C9A87C] hover:bg-[#B8956A] hover:shadow-lg hover:shadow-[#C9A87C]/20'
                 }`}
               >
                 {isTelemedicine ? (
