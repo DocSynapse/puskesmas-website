@@ -45,6 +45,25 @@ aider.conf.yml
 .github/copilot-*
 .copilot/
 .claude/
+.bolt/
+.windsurf/
+.tabnine/
+.sourcery/
+.codiumai/
+.devin/
+.replit/
+AGENTS.md
+
+# ─── AI Session & Conversation Artifacts ──────────────────────────────────────
+*.chat
+*.conversation
+*.prompt
+.prompts/
+.ai/
+ai-context/
+ai-history/
+.chat_history/
+.llm/
 
 # ─── Model Weights & AI Artifacts ────────────────────────────────────────────
 *.gguf
@@ -53,6 +72,10 @@ aider.conf.yml
 *.pt
 *.pth
 *.ckpt
+*.bin
+*.onnx
+*.tflite
+*.mlmodel
 models/
 checkpoints/
 *.faiss
@@ -65,3 +88,10 @@ fine_tune/
 ai_outputs/
 generated/
 llm_cache/
+embeddings/
+
+# ─── Lock files (project uses npm — ignore others) ───────────────────────────
+bun.lock
+bun.lockb
+yarn.lock
+pnpm-lock.yaml
