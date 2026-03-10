@@ -75,19 +75,19 @@ function App() {
       <main className="relative">
         {/* Hero — above fold, tidak perlu reveal */}
         <Hero />
-        <Suspense fallback={null}>
-          <div data-reveal="left"><About /></div>
-          <div data-reveal="right"><Doctors /></div>
-          <div data-reveal="left"><PatientFlow /></div>
-          <div data-reveal="right"><Diseases /></div>
-          <div data-reveal="left"><Services /></div>
-          <div data-reveal="right"><Facilities /></div>
-          <div data-reveal="left"><USG /></div>
-          <div data-reveal="right"><Testimonials /></div>
-          <div data-reveal="left"><Reservation /></div>
-          <div data-reveal="right"><Location /></div>
-          <div data-reveal><Footer /></div>
-        </Suspense>
+        {/* Individual Suspense boundaries agar <div data-reveal> selalu ada di DOM,
+            sehingga IntersectionObserver bisa observe meskipun chunk belum load */}
+        <div data-reveal="left"><Suspense fallback={null}><About /></Suspense></div>
+        <div data-reveal="right"><Suspense fallback={null}><Doctors /></Suspense></div>
+        <div data-reveal="left"><Suspense fallback={null}><PatientFlow /></Suspense></div>
+        <div data-reveal="right"><Suspense fallback={null}><Diseases /></Suspense></div>
+        <div data-reveal="left"><Suspense fallback={null}><Services /></Suspense></div>
+        <div data-reveal="right"><Suspense fallback={null}><Facilities /></Suspense></div>
+        <div data-reveal="left"><Suspense fallback={null}><USG /></Suspense></div>
+        <div data-reveal="right"><Suspense fallback={null}><Testimonials /></Suspense></div>
+        <div data-reveal="left"><Suspense fallback={null}><Reservation /></Suspense></div>
+        <div data-reveal="right"><Suspense fallback={null}><Location /></Suspense></div>
+        <div data-reveal><Suspense fallback={null}><Footer /></Suspense></div>
       </main>
     </div>
     </ReactLenis>

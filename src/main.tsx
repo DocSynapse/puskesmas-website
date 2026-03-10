@@ -33,34 +33,44 @@ document.addEventListener('click', (e) => {
 });
 
 // ── Staggered Section Reveal ─────────────────────────────────
-// Single global IntersectionObserver untuk semua [data-reveal] & [data-reveal-children]
-function initRevealObserver() {
-  const targets = Array.from(
-    document.querySelectorAll<HTMLElement>('[data-reveal], [data-reveal-children]')
-  );
-  if (!targets.length) return;
+// Persistent IntersectionObserver — picks up lazy-loaded sections via MutationObserver
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const target = entry.target as HTMLElement;
+        target.classList.add('reveal-in-view');
+        requestAnimationFrame(() => target.classList.add('revealed'));
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.18, rootMargin: '0px 0px -12% 0px' }
+);
 
-  targets.forEach((target, index) => {
-    if (target.style.getPropertyValue('--reveal-delay')) return;
-    const staggerDelay = Math.min(index * 70, 560);
-    target.style.setProperty('--reveal-delay', `${staggerDelay}ms`);
+let revealIndex = 0;
+
+function observeRevealTargets() {
+  const targets = document.querySelectorAll<HTMLElement>(
+    '[data-reveal]:not(.reveal-observed), [data-reveal-children]:not(.reveal-observed)'
+  );
+  targets.forEach((target) => {
+    target.classList.add('reveal-observed');
+    if (!target.style.getPropertyValue('--reveal-delay')) {
+      const staggerDelay = Math.min(revealIndex * 70, 560);
+      target.style.setProperty('--reveal-delay', `${staggerDelay}ms`);
+      revealIndex++;
+    }
+    revealObserver.observe(target);
   });
+}
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const target = entry.target as HTMLElement;
-          target.classList.add('reveal-in-view');
-          requestAnimationFrame(() => target.classList.add('revealed'));
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.18, rootMargin: '0px 0px -12% 0px' }
-  );
+function initRevealObserver() {
+  observeRevealTargets();
 
-  targets.forEach((el) => observer.observe(el));
+  // Watch for lazy-loaded sections arriving in DOM
+  const mutationObserver = new MutationObserver(() => observeRevealTargets());
+  mutationObserver.observe(document.body, { childList: true, subtree: true });
 }
 
 // ── Magnetic CTA ─────────────────────────────────────────────

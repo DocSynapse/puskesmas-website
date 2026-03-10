@@ -292,8 +292,9 @@ const Reservation = () => {
               <div style={{ display: isTelemedicine ? 'flex' : 'none', flexDirection: 'column', gap: 16, marginTop: 8, marginBottom: 16 }}>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Usia *</label>
+                  <label htmlFor="rsv-usia" style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Usia *</label>
                   <input
+                    id="rsv-usia"
                     type="number"
                     min={1} max={120}
                     placeholder="Contoh: 30"
@@ -304,8 +305,9 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Poli</label>
+                  <label htmlFor="rsv-poli" style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Poli</label>
                   <select
+                    id="rsv-poli"
                     value={poli}
                     onChange={e => setPoli(e.target.value)}
                     style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid #C9A87C', borderRadius: 12, fontSize: 14, color: '#2D2420', background: 'rgba(255,255,255,0.6)', outline: 'none' }}
@@ -318,8 +320,9 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>No. BPJS / Register</label>
+                  <label htmlFor="rsv-bpjs" style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>No. BPJS / Register</label>
                   <input
+                    id="rsv-bpjs"
                     type="text"
                     placeholder="Nomor BPJS atau nomor register pasien..."
                     value={bpjs}
@@ -329,8 +332,9 @@ const Reservation = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Keluhan *</label>
+                  <label htmlFor="rsv-keluhan" style={{ display: 'block', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7D6F', marginBottom: 8 }}>Keluhan *</label>
                   <textarea
+                    id="rsv-keluhan"
                     rows={3}
                     placeholder="Contoh: Nyeri kepala 2 hari, mual muntah..."
                     value={keluhan}

@@ -1,7 +1,7 @@
 // Chief's Diseases Section — Open Book Design
 // 144 Penyakit wajib diselesaikan di Puskesmas (Permenkes No.28/2014)
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { BookOpen, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 
 const categories = [
@@ -164,7 +164,17 @@ const Diseases = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentChapter, setCurrentChapter] = useState(0);
   const [query, setQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<{ cat: string; disease: string }[]>([]);
+  const searchResults = useMemo(() => {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase();
+    const results: { cat: string; disease: string }[] = [];
+    categories.forEach(cat => {
+      cat.diseases.forEach(d => {
+        if (d.toLowerCase().includes(q)) results.push({ cat: cat.title, disease: d });
+      });
+    });
+    return results;
+  }, [query]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -176,18 +186,6 @@ const Diseases = () => {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!query.trim()) { setSearchResults([]); return; }
-    const q = query.toLowerCase();
-    const results: { cat: string; disease: string }[] = [];
-    categories.forEach(cat => {
-      cat.diseases.forEach(d => {
-        if (d.toLowerCase().includes(q)) results.push({ cat: cat.title, disease: d });
-      });
-    });
-    setSearchResults(results);
-  }, [query]);
 
   const cat = categories[currentChapter];
   const prev = () => setCurrentChapter(p => Math.max(0, p - 1));

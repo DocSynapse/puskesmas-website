@@ -18,7 +18,7 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [pulseActive, setPulseActive] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
+  const hasStartedRef = useRef(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -100,8 +100,8 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
 
   // Send Welcome
   useEffect(() => {
-    if (isVisible && !hasStarted) {
-      setHasStarted(true);
+    if (isVisible && !hasStartedRef.current) {
+      hasStartedRef.current = true;
       setTimeout(() => {
         setPulseActive(true);
         setIsTyping(true);
@@ -118,7 +118,7 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
         }, 1500);
       }, 500);
     }
-  }, [isVisible, hasStarted]);
+  }, [isVisible]);
 
   // Auto scroll - contained within chat only
   useEffect(() => {
@@ -188,7 +188,7 @@ const LuxuryChatbox = ({ isVisible }: { isVisible: boolean }) => {
   ];
 
   const handleSuggestionClick = (suggestion: string) => {
-    const cleanText = suggestion.replace(/[📍👨‍⚕️🤖📅] /g, '');
+    const cleanText = suggestion.replace(/\p{Emoji_Presentation}\s?/gu, '').trim();
     setInputText(cleanText);
     
     setTimeout(() => {

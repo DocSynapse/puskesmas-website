@@ -1,9 +1,32 @@
 // Hero Section - Efficient & Clean Design
 import { useState, useEffect, useRef } from 'react';
 import { Clock, MapPin, Video, Siren, ChevronDown, User, Phone, Calendar, Stethoscope, MessageCircle, Activity, Baby, FlaskConical, HeartPulse, Home, Microscope } from 'lucide-react';
-import { buildWhatsAppUrl, OPERATIONAL_HOURS } from '@/config/site';
+import { buildWhatsAppUrl, OPERATIONAL_HOURS, DASHBOARD_URL } from '@/config/site';
 
 type Mode = 'kunjungan' | 'telemedicine' | 'darurat';
+
+interface SelectOption {
+  id: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  desc: string;
+}
+
+interface InputProps {
+  icon?: React.ComponentType<{ className?: string }>;
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+interface CustomSelectProps {
+  value: string;
+  onChange: (value: string) => void;
+  options: SelectOption[];
+  placeholder: string;
+  compact?: boolean;
+}
 
 const doctors = [
   { name: 'dr. Ferdi Iskandar', poli: 'Poli Umum', shift: OPERATIONAL_HOURS.doctorShift, img: '/images/ferdi.avif' },
@@ -37,6 +60,23 @@ const waktuList = [
   { id: '15:00 - 17:00', label: '15:00 - 17:00', icon: Clock, desc: 'Sore' },
 ];
 
+function TabButton({ icon: Icon, label, color, isActive, onSelect }: {
+  icon: React.ComponentType<{ className?: string }>; label: string; color: string;
+  isActive: boolean; onSelect: () => void;
+}) {
+  return (
+    <button
+      onClick={onSelect}
+      className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all ${
+        isActive ? `${color} text-white shadow-lg` : 'text-[#8B7D6F] hover:text-[#2D2420]'
+      }`}
+    >
+      <Icon className="w-4 h-4" />
+      <span>{label}</span>
+    </button>
+  );
+}
+
 export default function Hero() {
   const [mode, setMode] = useState<Mode>('telemedicine');
   const [loaded, setLoaded] = useState(false);
@@ -55,8 +95,7 @@ export default function Hero() {
 
   // Fetch dokter online dari dashboard
   useEffect(() => {
-    const DASHBOARD = 'https://primary-healthcare-production.up.railway.app';
-    fetch(`${DASHBOARD}/api/telemedicine/doctor-status`)
+    fetch(`${DASHBOARD_URL}/api/telemedicine/doctor-status`)
       .then((r) => r.json())
       .then((data: { doctors?: { doctorName: string }[] }) => {
         setOnlineDoctors((data.doctors ?? []).map((d) => d.doctorName));
@@ -74,11 +113,10 @@ export default function Hero() {
   const handleTele = async () => {
     if (!tele.nama || !tele.hp || !tele.keluhan) { alert('Lengkapi nama, HP, dan keluhan!'); return; }
     setTeleSubmitting(true);
-    const DASHBOARD = 'https://primary-healthcare-production.up.railway.app';
     const waMsg = `*TELEMEDICINE*\n\nNama: ${tele.nama}\nUsia: ${tele.usia}\nHP: ${tele.hp}\nPoli: ${tele.poli || 'Poli Umum'}\nNo. BPJS / Register: ${tele.bpjs || '-'}\nKeluhan: ${tele.keluhan}\n\nRequest: dr. Ferdi Iskandar`;
     // Kirim ke dashboard + buka WA serentak
     await Promise.allSettled([
-      fetch(`${DASHBOARD}/api/telemedicine/request`, {
+      fetch(`${DASHBOARD_URL}/api/telemedicine/request`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nama: tele.nama, usia: tele.usia, hp: tele.hp, poli: tele.poli || 'Poli Umum', bpjs: tele.bpjs, keluhan: tele.keluhan }),
@@ -92,18 +130,6 @@ export default function Hero() {
   };
 
 
-
-  const TabButton = ({ id, icon: Icon, label, color }: { id: Mode; icon: any; label: string; color: string }) => (
-    <button
-      onClick={() => setMode(id)}
-      className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all ${
-        mode === id ? `${color} text-white shadow-lg` : 'text-[#8B7D6F] hover:text-[#2D2420]'
-      }`}
-    >
-      <Icon className="w-4 h-4" />
-      <span>{label}</span>
-    </button>
-  );
 
   return (
     <section id="hero" className="relative w-full bg-[#F8F5F2] overflow-hidden pt-24" style={{ paddingBottom: '80px' }}>
@@ -168,9 +194,9 @@ export default function Hero() {
               
               {/* Tabs */}
               <div className="p-2 bg-[#FAF3EB]/60 m-4 rounded-2xl flex gap-2">
-                <TabButton id="telemedicine" icon={Video} label="Telemedicine" color="bg-[#2D2420]" />
-                <TabButton id="kunjungan" icon={MapPin} label="Kunjungan" color="bg-[#C9A87C]" />
-                <TabButton id="darurat" icon={Siren} label="Darurat" color="bg-red-600" />
+                <TabButton icon={Video} label="Telemedicine" color="bg-[#2D2420]" isActive={mode === 'telemedicine'} onSelect={() => setMode('telemedicine')} />
+                <TabButton icon={MapPin} label="Kunjungan" color="bg-[#C9A87C]" isActive={mode === 'kunjungan'} onSelect={() => setMode('kunjungan')} />
+                <TabButton icon={Siren} label="Darurat" color="bg-red-600" isActive={mode === 'darurat'} onSelect={() => setMode('darurat')} />
               </div>
 
               {/* Content */}
@@ -388,7 +414,7 @@ export default function Hero() {
 }
 
 // Reusable Input Component
-function Input({ icon: Icon, type = 'text', placeholder, value, onChange }: any) {
+function Input({ icon: Icon, type = 'text', placeholder, value, onChange }: InputProps) {
   return (
     <div className="relative">
       {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B7D6F]" />}
@@ -404,11 +430,11 @@ function Input({ icon: Icon, type = 'text', placeholder, value, onChange }: any)
 }
 
 // Custom Select Component with Glassmorphism
-function CustomSelect({ value, onChange, options, placeholder, compact }: any) {
+function CustomSelect({ value, onChange, options, placeholder, compact }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const selected = options.find((o: any) => o.id === value);
+  const selected = options.find((o: SelectOption) => o.id === value);
   const DefaultIcon = options[0]?.icon || Stethoscope;
 
   useEffect(() => {
@@ -470,7 +496,7 @@ function CustomSelect({ value, onChange, options, placeholder, compact }: any) {
       {isOpen && (
         <div className={`absolute z-50 w-full mt-2 bg-white/95 backdrop-blur-xl rounded-2xl border border-[#EADDCB] shadow-2xl shadow-black/10 overflow-hidden animate-in fade-in zoom-in-95 duration-200 ${compact ? 'max-h-[200px]' : 'max-h-[280px]'}`}>
           <div className={`overflow-y-auto py-2 ${compact ? 'max-h-[200px]' : 'max-h-[280px]'}`}>
-            {options.map((option: any, idx: number) => (
+            {options.map((option: SelectOption, idx: number) => (
               <button
                 key={option.id}
                 type="button"

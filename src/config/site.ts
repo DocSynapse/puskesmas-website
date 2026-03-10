@@ -27,6 +27,9 @@ export const QUEUE_INFO = {
 export const buildWhatsAppUrl = (message: string): string =>
   `https://wa.me/${SITE_INFO.whatsappInternational}?text=${encodeURIComponent(message)}`;
 
+export const DASHBOARD_URL =
+  import.meta.env.VITE_DASHBOARD_URL || 'https://primary-healthcare-production.up.railway.app';
+
 export const getSafeCrewPortalUrl = (
   rawUrl: string | undefined,
   allowLocalhost = false

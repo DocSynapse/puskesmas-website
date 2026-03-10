@@ -232,8 +232,8 @@ const Testimonials = () => {
           mappedReviews.reduce((sum, item) => sum + item.rating, 0) / mappedReviews.length;
         setAggregateRating(Math.round(average * 10) / 10);
         setAggregateCount(mappedReviews.length);
-      } catch (error) {
-        console.error('Gagal memuat sinkronisasi Google reviews:', error);
+      } catch {
+        /* silent — fallback testimonials tetap ditampilkan */
       }
     };
 
@@ -249,10 +249,11 @@ const Testimonials = () => {
     aggregateCount !== null ? new Intl.NumberFormat('id-ID').format(aggregateCount) : '500+';
 
   const StarRating = ({ rating }: { rating: number }) => (
-    <div className="flex items-center gap-0.5">
+    <div className="flex items-center gap-0.5" role="img" aria-label={`Rating ${rating} dari 5 bintang`}>
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
+          aria-hidden="true"
           className={`w-4 h-4 ${
             star <= rating ? 'fill-[#C9A87C] text-[#C9A87C]' : 'fill-gray-200 text-gray-200'
           }`}
@@ -358,10 +359,11 @@ const Testimonials = () => {
         >
           <div className="frosted-glass rounded-2xl p-4 text-center neo-card">
             <p className="text-2xl font-bold text-[#C9A87C]">{aggregateRating.toFixed(1)}</p>
-            <div className="flex justify-center gap-0.5 my-1">
+            <div className="flex justify-center gap-0.5 my-1" role="img" aria-label={`Rating ${aggregateRating.toFixed(1)} dari 5`}>
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
+                  aria-hidden="true"
                   className={`w-3 h-3 ${
                     star <= roundedRatingForStars
                       ? 'fill-[#C9A87C] text-[#C9A87C]'
