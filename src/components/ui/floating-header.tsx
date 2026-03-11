@@ -31,7 +31,7 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
     { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/@puskesmasbalowertikediri' },
   ];
 
-  function handleNavClick(_e: React.MouseEvent<HTMLAnchorElement>, _href: string, external?: boolean) {
+  function handleNavClick(external?: boolean) {
     if (external) { setOpen(false); return; }
     // Biarkan global smooth scroll handler di main.tsx yang menangani offset
     setOpen(false);
@@ -48,7 +48,7 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
         {/* Logo kiri */}
         <a
           href="#hero"
-          onClick={(e) => handleNavClick(e, '#hero')}
+          onClick={() => handleNavClick()}
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
           <div className="w-9 h-9 rounded-full overflow-hidden border border-[#C9A87C]/30 flex-shrink-0">
@@ -65,7 +65,7 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
             <a
               key={link.label}
               href={link.href}
-              onClick={(e) => handleNavClick(e, link.href, link.external)}
+              onClick={() => handleNavClick(link.external)}
               className="font-medium tracking-[0.04em] text-[13px] text-[#2D2420] px-4 py-1.5 rounded-full bg-transparent hover:bg-[#FAF3EB] hover:text-[#C9A87C] border border-transparent hover:border-[#EADDCB] transition-all duration-200"
             >
               {link.label}
@@ -140,7 +140,7 @@ export function FloatingHeader({ crewPortalUrl }: FloatingHeaderProps) {
                   <a
                     key={link.label}
                     href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href, link.external)}
+                    onClick={() => handleNavClick(link.external)}
                     className={cn(buttonVariants({ variant: 'ghost', className: 'justify-start text-[#2D2420]' }), 'font-medium tracking-[0.04em]')}
                   >
                     {link.label}

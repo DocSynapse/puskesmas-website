@@ -43,6 +43,13 @@
     font-family: 'Open Sans', sans-serif;
   }
 
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+
   /* Keep titles/headings on the display face */
   h1,
   h2,

@@ -80,6 +80,12 @@ const waktuList: SelectOption[] = [
   { id: '15:00 - 17:00', label: '15:00 - 17:00' },
 ];
 
+function getTodayLocalDate() {
+  const today = new Date();
+  const offsetInMs = today.getTimezoneOffset() * 60 * 1000;
+  return new Date(today.getTime() - offsetInMs).toISOString().split('T')[0];
+}
+
 function TabButton({
   icon: Icon,
   label,
@@ -122,7 +128,7 @@ export default function Hero() {
   const [teleSubmitting, setTeleSubmitting] = useState(false);
   const [teleSuccess, setTeleSuccess] = useState(false);
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayLocalDate();
   const availableDoctors = layanan
     ? doctors.filter((doctor) => doctor.poli.includes(layanan.replace('Poli ', '')) || layanan === 'IGD')
     : [];
