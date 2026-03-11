@@ -1,5 +1,6 @@
-Architected and built by the one and only Claudesy.
+
 <div align="center">
+Architected and built by the one and only Claudesy.
 
 # Puskesmas PONED Balowerti Kediri
 ### Public-Facing Website
@@ -14,7 +15,7 @@ Architected and built by the one and only Claudesy.
 
 **Live:** [puskesmas-website-production.up.railway.app](https://puskesmas-website-production.up.railway.app)
 
-<img src="./public/site2.png" alt="Puskesmas PONED Balowerti Website Preview" width="900" />
+<img src="./public/site.png" alt="Puskesmas PONED Balowerti Website Preview" width="900" />
 
 </div>
 
