@@ -114,11 +114,11 @@ const Doctors = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:auto-rows-fr lg:gap-8">
           {doctors.map((doctor, index) => (
             <Card
               key={doctor.name}
-              className={`group relative overflow-hidden rounded-md py-0 neo-card neo-card-hover
+              className={`group relative flex h-full flex-col overflow-hidden rounded-md py-0 neo-card neo-card-hover
                 transition-all duration-300 hover:-translate-y-0.5
                 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}
               style={{ transitionDelay: `${300 + index * 120}ms` }}
@@ -159,7 +159,7 @@ const Doctors = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-4 px-6 pb-4">
+              <CardContent className="flex flex-1 flex-col gap-3 px-6 pb-4">
                 {doctor.credentials && (
                   <div className="flex items-center gap-2 rounded-md bg-[#FAF3EB] px-3 py-2 neo-inset">
                     <GraduationCap className="h-4 w-4 text-[#C9A87C]" />
@@ -180,7 +180,7 @@ const Doctors = () => {
                   </span>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="mt-auto flex flex-wrap gap-2">
                   <Badge variant="outline" className="rounded-sm border-[#E6DACA] bg-[#FAF3EB] text-[#7E6A55] neo-chip">
                     <Stethoscope className="h-3.5 w-3.5" />
                     {doctor.specialty}
@@ -197,7 +197,7 @@ const Doctors = () => {
                 </div>
               </CardContent>
 
-              <CardFooter className="border-t border-[#F1E7DB] px-6 py-4">
+              <CardFooter className="mt-auto border-t border-[#F1E7DB] px-6 py-4">
                 <Button
                   asChild
                   variant="outline"
