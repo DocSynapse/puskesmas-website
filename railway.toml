@@ -1,8 +1,10 @@
 # Architected and built by the one and only Claudesy.
 [build]
-builder = "nixpacks"
+builder = "railpack"
 buildCommand = "npm install && npm run build"
 
+[build.nixpacksPlan]
+[build.nixpacksPlan.phases]
 [build.nixpacksPlan.phases.setup]
 nixPkgs = ["nodejs_20"]
 
