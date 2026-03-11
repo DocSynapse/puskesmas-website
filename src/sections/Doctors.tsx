@@ -91,7 +91,7 @@ const Doctors = () => {
       className="relative w-full py-14 lg:py-20 bg-[#F8F5F2] overflow-hidden neo-section"
     >
       <div className="px-6 lg:px-[7vw]">
-        <div className="max-w-2xl mb-12">
+        <div className="mb-10 max-w-3xl lg:mb-12">
           <span
             className={`text-xs uppercase tracking-[0.2em] text-[#8B7D6F] font-medium
               transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -114,7 +114,7 @@ const Doctors = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:auto-rows-fr lg:gap-8">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:auto-rows-fr lg:gap-6">
           {doctors.map((doctor, index) => (
             <Card
               key={doctor.name}
@@ -124,11 +124,11 @@ const Doctors = () => {
               style={{ transitionDelay: `${300 + index * 120}ms` }}
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-[#C9A87C]" />
-              <CardHeader className="px-6 pt-6 pb-4 border-b border-[#EFE4D6]">
+              <CardHeader className="border-b border-[#EFE4D6] px-5 pb-3 pt-5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md border border-[#DCCCB7]
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-[#DCCCB7]
                         bg-[#FAF3EB] neo-inset"
                     >
                       <img
@@ -142,10 +142,10 @@ const Doctors = () => {
                       />
                     </div>
                     <div>
-                      <CardTitle className="font-['Playfair_Display'] text-xl text-[#2D2420]">
+                      <CardTitle className="font-['Playfair_Display'] text-[1.15rem] leading-tight text-[#2D2420]">
                         {doctor.name}
                       </CardTitle>
-                      <CardDescription className="mt-1 text-sm text-[#8B7D6F]">
+                      <CardDescription className="mt-1 text-xs uppercase tracking-[0.12em] text-[#8B7D6F]">
                         {doctor.role}
                       </CardDescription>
                     </div>
@@ -159,9 +159,9 @@ const Doctors = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="flex flex-1 flex-col gap-3 px-6 pb-4">
+              <CardContent className="flex flex-1 flex-col gap-2.5 px-5 pb-3">
                 {doctor.credentials && (
-                  <div className="flex items-center gap-2 rounded-md bg-[#FAF3EB] px-3 py-2 neo-inset">
+                  <div className="flex items-center gap-2 rounded-md bg-[#FAF3EB] px-3 py-1.5 neo-inset">
                     <GraduationCap className="h-4 w-4 text-[#C9A87C]" />
                     <span className="text-xs tracking-wide text-[#7E6A55]">
                       {doctor.credentials}
@@ -169,19 +169,19 @@ const Doctors = () => {
                   </div>
                 )}
 
-                <p className="text-sm leading-relaxed text-[#6F5C4A]">
+                <p className="text-[13px] leading-6 text-[#6F5C4A]">
                   {doctor.description}
                 </p>
 
-                <div className="flex items-center gap-2 rounded-md border border-[#E7DAC9] bg-[#FFF9F3] px-3 py-2 neo-inset">
+                <div className="flex items-center gap-2 rounded-md border border-[#E7DAC9] bg-[#FFF9F3] px-3 py-1.5 neo-inset">
                   <Clock3 className="h-4 w-4 text-[#C9A87C]" />
                   <span className="text-xs font-medium tracking-wide text-[#7E6A55]">
                     Jadwal kerja: {sharedSchedule}
                   </span>
                 </div>
 
-                <div className="mt-auto flex flex-wrap gap-2">
-                  <Badge variant="outline" className="rounded-sm border-[#E6DACA] bg-[#FAF3EB] text-[#7E6A55] neo-chip">
+                <div className="mt-auto flex flex-wrap gap-1.5">
+                  <Badge variant="outline" className="rounded-sm border-[#E6DACA] bg-[#FAF3EB] text-[11px] text-[#7E6A55] neo-chip">
                     <Stethoscope className="h-3.5 w-3.5" />
                     {doctor.specialty}
                   </Badge>
@@ -189,7 +189,7 @@ const Doctors = () => {
                     <Badge
                       key={`${doctor.name}-${item}`}
                       variant="outline"
-                      className="rounded-sm border-[#EFE5D8] bg-white text-[#8B7D6F] neo-chip"
+                      className="rounded-sm border-[#EFE5D8] bg-white text-[11px] text-[#8B7D6F] neo-chip"
                     >
                       {item}
                     </Badge>
@@ -197,11 +197,11 @@ const Doctors = () => {
                 </div>
               </CardContent>
 
-              <CardFooter className="mt-auto border-t border-[#F1E7DB] px-6 py-4">
+              <CardFooter className="mt-auto border-t border-[#F1E7DB] px-5 py-3">
                 <Button
                   asChild
                   variant="outline"
-                  className="h-9 rounded-md border-[#DCCCB7] text-sm font-medium text-[#9F7E53] hover:bg-[#FAF3EB] hover:text-[#8D6E45] neo-control"
+                  className="h-10 rounded-md border-[#DCCCB7] px-3 text-xs font-medium text-[#9F7E53] hover:bg-[#FAF3EB] hover:text-[#8D6E45] neo-control"
                 >
                   <a href="#reservation" className="inline-flex items-center gap-2">
                     Konsultasi dengan tim ini
