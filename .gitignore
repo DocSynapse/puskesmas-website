@@ -52,7 +52,7 @@ aider.conf.yml
 .codiumai/
 .devin/
 .replit/
-AGENTS.md
+# AGENTS.md — no longer ignored (needed for Jules AI agent)
 
 # ─── AI Session & Conversation Artifacts ──────────────────────────────────────
 *.chat
