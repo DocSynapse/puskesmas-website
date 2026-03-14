@@ -77,8 +77,8 @@ const StoryScroll = () => {
   const progress = steps.length > 1 ? activeIndex / (steps.length - 1) : 0;
 
   return (
-    <div className="pointer-events-none fixed right-4 top-28 z-40 hidden min-[1480px]:block 2xl:right-6">
-      <div className="w-[138px] origin-top-right scale-[0.92] rounded-2xl p-3 neo-card opacity-85 shadow-[0_18px_40px_rgba(110,90,67,0.12)] 2xl:w-[148px] 2xl:scale-100">
+    <div className="pointer-events-none fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 xl:block">
+      <div className="w-[148px] rounded-2xl p-3 neo-card opacity-90">
         <div className="mb-2 flex items-center gap-1.5 text-[#8B7D6F]">
           <Sparkles className="h-3 w-3 text-[#C9A87C]" />
           <p className="text-[9px] uppercase tracking-[0.16em]">Story</p>

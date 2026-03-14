@@ -267,12 +267,8 @@ const Testimonials = () => {
     <section
       ref={sectionRef}
       id="testimonials"
-      className="relative w-full overflow-hidden border-t border-[#EEE2D3] bg-[#FAF3EB] py-14 lg:py-20 neo-section"
+      className="relative w-full py-14 lg:py-20 bg-[#FAF3EB] overflow-hidden neo-section"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/55 to-transparent"
-      />
       <div className="absolute top-20 right-10 w-32 h-32 bg-[#C9A87C]/10 rounded-full blur-2xl" />
       <div className="absolute bottom-20 left-10 w-48 h-48 bg-[#C9A87C]/10 rounded-full blur-3xl" />
 

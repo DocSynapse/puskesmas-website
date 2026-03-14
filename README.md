@@ -1,6 +1,5 @@
-
-<div align="center">
 Architected and built by the one and only Claudesy.
+<div align="center">
 
 # Puskesmas PONED Balowerti Kediri
 ### Public-Facing Website
@@ -13,9 +12,9 @@ Architected and built by the one and only Claudesy.
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Railway](https://img.shields.io/badge/Deployed_on-Railway-0B0D0E?style=flat-square&logo=railway&logoColor=white)](https://railway.app/)
 
-**Live:** [puskesmasbalowerti.com](https://puskesmasbalowerti.com)
+**Live:** [puskesmas-website-production.up.railway.app](https://puskesmas-website-production.up.railway.app)
 
-<img src="./public/site.png2.png" alt="Puskesmas PONED Balowerti Website Preview" width="900" />
+<img src="./public/site.png" alt="Puskesmas PONED Balowerti Website Preview" width="900" />
 
 </div>
 
@@ -60,7 +59,7 @@ The website is organized into a seamless, scroll-driven single-page experience w
 | Animation | Framer Motion 12, Lenis smooth scroll, IntersectionObserver |
 | Form Handling | React Hook Form 7 + Zod 4 validation |
 | Icons | Lucide React |
-| Deployment | Railway (nixpacks, Node.js 20, static `serve`) |
+| Deployment | Railway (Railpack, Node.js 20.19+ / 22.12+, static `serve`) |
 | Package Manager | npm (bun.lock also present) |
 
 ---
@@ -116,7 +115,7 @@ puskesmas-website/
 
 ### Prerequisites
 
-- **Node.js** 18+ (Node.js 20 recommended)
+- **Node.js** 20.19+ or 22.12+
 - **npm** 9+
 
 ### Installation
@@ -205,11 +204,8 @@ The project is deployed to **Railway** using the configuration in `railway.toml`
 
 ```toml
 [build]
-builder = "nixpacks"
-buildCommand = "npm install && npm run build"
-
-[build.nixpacksPlan.phases.setup]
-nixPkgs = ["nodejs_20"]
+builder = "RAILPACK"
+buildCommand = "npm ci && npm run build"
 
 [deploy]
 startCommand = "npx serve -s dist -l $PORT"
@@ -285,12 +281,9 @@ All user-facing text is in **Bahasa Indonesia**. Code comments mix Indonesian an
 
 ## Related Documentation
 
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — System architecture overview and ADRs
-- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — Development workflow and contribution guidelines
-- [`SECURITY.md`](./SECURITY.md) — Security policy and responsible disclosure
-- [`CHANGELOG.md`](./CHANGELOG.md) — Version history and notable changes
+- [`SERVER_GUIDE.md`](./SERVER_GUIDE.md) — Server setup and deployment guide
 - [`CLAUDE.md`](./CLAUDE.md) — AI assistant context file for codebase understanding
-- [`docs/`](./docs/) — Extended architecture documentation and ADR records
+- [`docs/`](./docs/) — Complete project dossier including architecture and operations guides
 
 ---
 
@@ -298,7 +291,7 @@ All user-facing text is in **Bahasa Indonesia**. Code comments mix Indonesian an
 
 | Tool | Version |
 |---|---|
-| Node.js | 20.x (LTS recommended) |
+| Node.js | 20.19+ or 22.12+ |
 | npm | 9+ |
 | Google Places API Key | Required only for `sync:reviews` |
 
@@ -312,4 +305,4 @@ All user-facing text is in **Bahasa Indonesia**. Code comments mix Indonesian an
 
 *Serving the community of Kediri, East Java, Indonesia 🇮🇩*
 
-</div>>
+</div>

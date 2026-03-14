@@ -200,12 +200,8 @@ const Diseases = () => {
     <section
       ref={sectionRef}
       id="diseases"
-      className="relative w-full overflow-hidden border-t border-[#E7DBCD] bg-[#F3EEE8] py-14 lg:py-20"
+      className="relative w-full py-14 lg:py-20 bg-[#F2EDE8] overflow-hidden"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.42)_0%,rgba(243,238,232,0)_18%,rgba(201,168,124,0.04)_100%)]"
-      />
       <style>{`
         @keyframes page-turn { 0%{opacity:0;transform:rotateY(-8deg) translateX(-12px)} 100%{opacity:1;transform:rotateY(0deg) translateX(0)} }
         .page-turn { animation: page-turn 0.4s cubic-bezier(.25,.46,.45,.94) both; }
@@ -272,10 +268,10 @@ const Diseases = () => {
           </div>
 
           {/* Book body */}
-          <div className="book-shadow rounded-2xl overflow-hidden border border-[#E7DBCD]" style={{ background: '#F7F2EB' }}>
+          <div className="book-shadow rounded-2xl overflow-hidden" style={{ background: '#F5EFE8' }}>
 
             {/* Book top strip — chapter header */}
-            <div className="flex items-center justify-between px-6 py-3" style={{ background: `linear-gradient(90deg, ${cat.color}, ${cat.color}CC)` }}>
+            <div className="flex items-center justify-between px-6 py-3" style={{ background: cat.color }}>
               <div className="flex items-center gap-3">
                 <BookOpen className="w-4 h-4 text-white/80" />
                 <span className="text-xs font-bold text-white/80 uppercase tracking-widest">Bab {cat.chapter}</span>
@@ -350,7 +346,7 @@ const Diseases = () => {
             </div>
 
             {/* Book bottom — navigation */}
-            <div className="flex items-center justify-between px-6 py-4" style={{ background: 'rgba(255,255,255,0.55)', borderTop: '1px solid rgba(140,115,91,0.1)' }}>
+            <div className="flex items-center justify-between px-6 py-4" style={{ background: 'rgba(0,0,0,0.03)', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
               <button
                 onClick={prev}
                 disabled={currentChapter === 0}

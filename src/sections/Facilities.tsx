@@ -137,12 +137,8 @@ const Facilities = () => {
     <section
       ref={sectionRef}
       id="facilities"
-      className="relative w-full overflow-hidden border-t border-[#EEE2D3] bg-[#F8F5F2] py-14 lg:py-20 neo-section"
+      className="relative w-full py-14 lg:py-20 bg-[#F8F5F2] overflow-hidden neo-section"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(250,243,235,0.62)_0%,rgba(248,245,242,0)_18%,rgba(201,168,124,0.04)_100%)]"
-      />
       {/* Decorative Background */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-[#C9A87C]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 float-gentle" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A87C]/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 float-gentle-delay-2" />

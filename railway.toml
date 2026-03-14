@@ -1,12 +1,7 @@
 # Architected and built by the one and only Claudesy.
 [build]
-builder = "railpack"
-buildCommand = "npm install && npm run build"
-
-[build.nixpacksPlan]
-[build.nixpacksPlan.phases]
-[build.nixpacksPlan.phases.setup]
-nixPkgs = ["nodejs_20"]
+builder = "RAILPACK"
+buildCommand = "npm ci && npm run build"
 
 [deploy]
 startCommand = "npx serve -s dist -l $PORT"

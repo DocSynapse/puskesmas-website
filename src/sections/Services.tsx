@@ -170,12 +170,8 @@ const Services = () => {
     <section
       ref={sectionRef}
       id="services"
-      className="relative w-full overflow-hidden border-t border-[#EEE2D3] bg-[#FAF3EB] py-14 lg:py-20 neo-section"
+      className="relative w-full py-14 lg:py-20 bg-[#FAF3EB] overflow-hidden neo-section"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/50 to-transparent"
-      />
       {/* Chief's Decorative Elements */}
       <div className="absolute top-20 left-10 w-40 h-40 bg-[#C9A87C]/5 rounded-full blur-3xl float-gentle" />
       <div className="absolute bottom-20 right-10 w-60 h-60 bg-[#C9A87C]/5 rounded-full blur-3xl float-gentle-delay-1" />
